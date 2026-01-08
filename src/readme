@@ -1,0 +1,20 @@
+here i have 4 clases  Person Athlete Sportsclub  Main
+Person
+this class our superclass
+in person  have Encapsulation private id
+abstract class person it is shows only the most important properties of the object
+i have method abstraction Polymorphic  getrole needed to determine the exact type of object
+Athlete
+this clas our subclass
+in this class i use override method
+in getrole This method determines who a person is
+equals it nedeed to compare objects
+hashcode for returns the hash code integer number for the object
+Sportsclube
+ addathlete to add athlets
+ searchByid to find whith ID
+ sortbyage to sort by age
+ showall for to show all the athletes out
+ Main
+ The main class that runs the program
+ scanner receives information from the user

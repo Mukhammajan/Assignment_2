@@ -7,14 +7,14 @@ public class SportsClub {
         athletes.add(athlete);
     }
 
-    // Фильтрлеу (спорт бойынша)
+
     public void filterBySport(String sport) {
         athletes.stream()
                 .filter(a -> a.getSport().equalsIgnoreCase(sport))
                 .forEach(System.out::println);
     }
 
-    // Іздеу (ID арқылы)
+
     public Athlete searchById(int id) {
         for (Athlete a : athletes) {
             if (a.getId() == id) return a;

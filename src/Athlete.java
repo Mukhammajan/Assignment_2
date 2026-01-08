@@ -36,7 +36,7 @@ public class Athlete extends Person {
         return getId() == athlete.getId();
     }
 
-    // hashCode()
+
     @Override
     public int hashCode() {
         return Objects.hash(getId());
