@@ -1,45 +1,58 @@
+import java.sql.Connection;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        SportsClub club = new SportsClub();
+        SportDAO dao = new SportDAO();
 
-        System.out.print("number of athletes: ");
-        int n = scanner.nextInt();
+        try (Connection conn = DBConnection.getConnection();
+             Scanner sc = new Scanner(System.in)) {
 
-        for (int i = 0; i < n; i++) {
-            System.out.print("ID: ");
-            int id = scanner.nextInt();
+            System.out.println("Connected!");
 
-            System.out.print("Name: ");
-            String name = scanner.next();
+            while (true) {
+                System.out.println("""
+                    1) INSERT sport
+                    2) SELECT sports
+                    3) UPDATE sport name
+                    4) DELETE sport
+                    0) Exit
+                """);
 
-            System.out.print("Sport: ");
-            String sport = scanner.next();
+                System.out.print("Choose: ");
+                int c = sc.nextInt();
 
-            System.out.print("Age: ");
-            int age = scanner.nextInt();
+                if (c == 0) break;
 
-            Athlete athlete = new Athlete(id, name, sport, age);
-            club.addAthlete(athlete);
+                switch (c) {
+                    case 1 -> {
+                        System.out.print("Sport name: ");
+                        String name = sc.next();
+                        System.out.print("Category: ");
+                        String cat = sc.next();
+                        dao.insertSport(conn, name, cat);
+                        System.out.println("Inserted!");
+                    }
+                    case 2 -> dao.showSports(conn);
+
+                    case 3 -> {
+                        System.out.print("Sport id: ");
+                        int id = sc.nextInt();
+                        System.out.print("New name: ");
+                        String newName = sc.next();
+                        System.out.println("Updated rows: " + dao.updateSportName(conn, id, newName));
+                    }
+                    case 4 -> {
+                        System.out.print("Sport id: ");
+                        int id = sc.nextInt();
+                        System.out.println("Deleted rows: " + dao.deleteSport(conn, id));
+                    }
+                    default -> System.out.println("Wrong option!");
+                }
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
         }
-
-        System.out.println("\nall players:");
-        club.showAll();
-
-        System.out.println("\nsortet by age ");
-        club.sortByAge();
-        club.showAll();
-
-        System.out.print("\n for find input ID ");
-        int searchId = scanner.nextInt();
-        Athlete found = club.searchById(searchId);
-
-        System.out.println(found != null ? found : "not foundet");
-
-        System.out.print("\nsport name ");
-        String filterSport = scanner.next();
-        club.filterBySport(filterSport);
     }
 }
