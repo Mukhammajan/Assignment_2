@@ -42,4 +42,3 @@ public class Athlete extends Person {
         return Objects.hash(getId());
     }
 }
-

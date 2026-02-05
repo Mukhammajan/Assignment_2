@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Sport API UI</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="container">
+    <h1>Sports</h1>
+
+    <div class="card">
+        <h2>Add sport</h2>
+        <form id="sportForm">
+            <label>
+                Name
+                <input id="name" placeholder="e.g. Tennis" required />
+            </label>
+
+            <label>
+                Category
+                <input id="category" placeholder="e.g. Outdoor" required />
+            </label>
+
+            <button type="submit">Add</button>
+        </form>
+        <p id="msg"></p>
+    </div>
+
+    <div class="card">
+        <div class="row">
+            <h2>List</h2>
+            <button id="refreshBtn" type="button">Refresh</button>
+        </div>
+
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody id="tbody"></tbody>
+        </table>
+    </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

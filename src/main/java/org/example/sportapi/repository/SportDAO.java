@@ -1,4 +1,4 @@
-/*package org.example.sportapi.repository;
+package org.example.sportapi.repository;
 
 import org.example.sportapi.model.Sport;
 
@@ -46,4 +46,3 @@ public class SportDAO implements SportRepository {
         }
     }
 }
-*/

@@ -1,58 +1,73 @@
-import java.sql.Connection;
+/*import java.sql.Connection;
 import java.util.Scanner;
 
 public class Main {
+
     public static void main(String[] args) {
-        SportDAO dao = new SportDAO();
+
+        // DIP: интерфейс арқылы жұмыс
+        SportRepository repo = new SportDAO();
+        SportService service = new SportService(repo);
 
         try (Connection conn = DBConnection.getConnection();
              Scanner sc = new Scanner(System.in)) {
 
             System.out.println("Connected!");
 
+            // SRP: UI бөлек
+            Menu menu = new Menu(sc);
+
             while (true) {
-                System.out.println("""
-                    1) INSERT sport
-                    2) SELECT sports
-                    3) UPDATE sport name
-                    4) DELETE sport
-                    0) Exit
-                """);
+                int choice = menu.chooseOption();
+                if (choice == 0) {
+                    System.out.println("Bye ");
+                    break;
+                }
 
-                System.out.print("Choose: ");
-                int c = sc.nextInt();
+                try {
+                    switch (choice) {
 
-                if (c == 0) break;
+                        case 1 -> {
+                            service.add(
+                                    conn,
+                                    menu.askSportName(),
+                                    menu.askCategory()
+                            );
+                            System.out.println("Inserted!");
+                        }
 
-                switch (c) {
-                    case 1 -> {
-                        System.out.print("Sport name: ");
-                        String name = sc.next();
-                        System.out.print("Category: ");
-                        String cat = sc.next();
-                        dao.insertSport(conn, name, cat);
-                        System.out.println("Inserted!");
+                        case 2 -> {
+                            service.list(conn);
+                        }
+
+                        case 3 -> {
+                            int updated = service.rename(
+                                    conn,
+                                    menu.askId(),
+                                    menu.askNewName()
+                            );
+                            System.out.println("Updated rows: " + updated);
+                        }
+
+                        case 4 -> {
+                            int deleted = service.remove(
+                                    conn,
+                                    menu.askId()
+                            );
+                            System.out.println("Deleted rows: " + deleted);
+                        }
+
+                        default -> System.out.println("Wrong option!");
                     }
-                    case 2 -> dao.showSports(conn);
 
-                    case 3 -> {
-                        System.out.print("Sport id: ");
-                        int id = sc.nextInt();
-                        System.out.print("New name: ");
-                        String newName = sc.next();
-                        System.out.println("Updated rows: " + dao.updateSportName(conn, id, newName));
-                    }
-                    case 4 -> {
-                        System.out.print("Sport id: ");
-                        int id = sc.nextInt();
-                        System.out.println("Deleted rows: " + dao.deleteSport(conn, id));
-                    }
-                    default -> System.out.println("Wrong option!");
+                } catch (Exception e) {
+                    System.out.println("Operation error: " + e.getMessage());
                 }
             }
 
         } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+            System.out.println("Connection error: " + e.getMessage());
         }
     }
 }
+*/
